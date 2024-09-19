@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser, { json } from "body-parser";
+import bodyParser from "body-parser";
 
 const app = express();
 const port = 3000;
@@ -56,6 +56,21 @@ app.put("/jokes/:id", (req,res)=>{
 });
 
 //6. PATCH a joke
+app.patch("/jokes/:id", (req,res)=>{
+  const id = parseInt(req.params.id);
+  const existingJoke = jokes.find((joke) => joke.id === id);
+  const replacementJoke ={
+    id: id,
+    jokeText: req.body.text || existingJoke.jokeText,
+    jokeText: req.body.type || existingJoke.jokeType,
+
+  };
+
+  const searchIndex = jokes.findIndex((joke)=> joke.id === id);
+  jokes[searchIndex] = replacementJoke;
+  console.log(jokes[searchIndex]);
+  res.json(replacementJoke);
+})
 
 //7. DELETE Specific joke
 
