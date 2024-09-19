@@ -62,8 +62,7 @@ app.patch("/jokes/:id", (req,res)=>{
   const replacementJoke ={
     id: id,
     jokeText: req.body.text || existingJoke.jokeText,
-    jokeText: req.body.type || existingJoke.jokeType,
-
+    jokeType: req.body.type || existingJoke.jokeType,
   };
 
   const searchIndex = jokes.findIndex((joke)=> joke.id === id);
@@ -80,7 +79,7 @@ app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
 });
 
-var jokes = [
+let jokes = [
   {
     id: 1,
     jokeText:
